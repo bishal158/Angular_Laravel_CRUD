@@ -1,0 +1,44 @@
+
+<div class="container-fluid p-5 mt-2">
+<div class="container mb-2">
+  <a routerLink="/user/add-user" class="text-decoration-none">
+    <button class="btn btn-dark text-white text-center">
+      Add New User
+    </button>
+  </a>
+  </div>
+  <div class="container">
+    <h2 class="text-white bg-dark text-center">Users List</h2>
+  </div>
+  <div class="container mt-1 ">
+    <table class="table table-light table-hover-light">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Doe</td>
+          <td>john@example.com</td>
+          <td>01798541625</td>
+          <td>
+            <a routerLink="/user/update-user" class="text-decoration-none mx-1">
+              <button class="btn btn-primary">
+                Update
+              </button>
+            </a>
+            <button class="btn btn-danger">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

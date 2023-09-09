@@ -1,0 +1,39 @@
+
+<div class="container-fluid p-lg-5 mt-2">
+  <div class="container">
+    <h2 class="bg-dark text-white text-center p-2">Update Users</h2>
+  </div>
+  <div class="container shadow mt-5 bg-light p-3">
+    <form [formGroup]="add_user_form" (ngSubmit)="on_user_submit()">
+      <label for="name">Name</label>
+      <div class="input-group mb-3">
+        <span class="p-2 mx-1"><fa-icon [icon]="faUser" class="fa-fade w-100"></fa-icon></span>
+        <input type="text" class="form-control"  aria-label="name" aria-describedby="name" id="name" name="name" formControlName="name" [ngClass]="{error: getControl('name')?.errors && getControl('name')?.touched, success:getControl('name')?.valid && getControl('name')?.touched}">
+      </div>
+      <alert type="danger" class="text-dark" *ngIf="name_error_alert_msg">
+        <fa-icon [icon]="faCircleExclamation" class="fa-beat-fade"></fa-icon>
+        {{name_error_message}}
+      </alert>
+
+      <label for="email">Email</label>
+      <div class="input-group mb-3">
+        <span class="p-2 mx-1"><fa-icon [icon]="faEnvelope" class="fa-fade w-100"></fa-icon></span>
+        <input type="email" class="form-control" aria-label="email" aria-describedby="email" id="email" name="email" formControlName="email" [ngClass]="{error: getControl('email')?.errors && getControl('email')?.touched, success:getControl('email')?.valid && getControl('email')?.touched}">
+      </div>
+      <alert type="danger" class="text-dark" *ngIf="email_error_alert_msg">
+        <fa-icon [icon]="faCircleExclamation" class="fa-beat-fade"></fa-icon>
+        {{email_error_message}}
+      </alert>
+      <label for="phone">Phone</label>
+      <div class="input-group mb-3">
+        <span class="p-2 mx-1"><fa-icon [icon]="faPhone" class="fa-fade w-100"></fa-icon></span>
+        <input type="text" class="form-control" aria-label="phone" aria-describedby="phone" id="phone" name="phone" formControlName="phone" [ngClass]="{error: getControl('phone')?.errors && getControl('phone')?.touched, success:getControl('phone')?.valid && getControl('phone')?.touched}">
+      </div>
+      <alert type="danger" class="text-dark" *ngIf="phone_error_alert_msg">
+        <fa-icon [icon]="faCircleExclamation" class="fa-beat-fade"></fa-icon>
+        {{phone_error_message}}
+      </alert>
+      <button type="submit" class="btn btn-primary w-25" [disabled]="add_user_form.status === 'INVALID' ">Update</button>
+    </form>
+  </div>
+</div>
