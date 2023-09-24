@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { faCircleExclamation, faCoffee, faEnvelope, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faCircleExclamation, faCoffee, faEnvelope, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { CrudServiceService } from 'src/app/services/crud-service.service';
 @Component({
@@ -15,26 +15,27 @@ export class AddUserComponent implements OnInit {
   faEnvelope =faEnvelope;
   faPhone = faPhone;
   faCircleExclamation = faCircleExclamation;
+  faCircleCheck = faCircleCheck;
 // Validators
   add_user_form = this.formbuilder.group({
     name:[' ',[Validators.required,Validators.minLength(5),Validators.maxLength(20)]],
     email:[' ',[Validators.required,Validators.email]],
-    phone:[' ',[Validators.required,Validators.maxLength(11),Validators.minLength(11)]],
+    phone:[' ',[Validators.required]],
   });
 
   constructor(private formbuilder: FormBuilder, private crudService: CrudServiceService, private toastr:ToastrService){}
 
   ngOnInit(): void {
     const nameControl = this.add_user_form.get('name');
-    nameControl?.valueChanges.subscribe(data => {
+    nameControl?.valueChanges.subscribe(_data => {
       this.validateNameControl(nameControl as FormControl)
     })
     const emailControl = this.add_user_form.get('email');
-    emailControl?.valueChanges.subscribe(data => {
+    emailControl?.valueChanges.subscribe(_data => {
       this.validateEmailControl(emailControl as FormControl)
     })
     const phoneControl = this.add_user_form.get('phone');
-    phoneControl?.valueChanges.subscribe(data => {
+    phoneControl?.valueChanges.subscribe(_data => {
       this.validatePhoneControl(phoneControl as FormControl)
     })
   }
@@ -46,22 +47,40 @@ export class AddUserComponent implements OnInit {
   name!: string;
   email!: string;
   phone!: string;
+  server_errors:any = [];
+  //isLoading:boolean = false;
+  //loadingTitle:string = "Loading";
+  //no_server_errors = false;
   on_user_submit(){
-
+    //this.isLoading = true;
+    //this.loadingTitle = "Saving";
     var user_data = {
       name: this.name,
       email: this.email,
       phone: this.phone
     }
     this.crudService.user_submit(user_data).subscribe({
-      next:(res:any) => {
-        console.log(res,'response')
+      next:(_res:any) => {
+        this.showSuccess();
+        this.add_user_form.reset();
+        //this.isLoading = false;
+
       },
       error:(err:any) =>{
-        console.log(err,'response')
+        this.server_errors= err.error.errors;
+        //this.isLoading = false;
+        console.log(err.error.errors,'errors');
+        this.showError()
       }
     });
-    this.add_user_form.reset();
+  }
+  // form submission success server side
+  showSuccess(){
+    this.toastr.success("Successfully Created...")
+  }
+  // for submission error server side
+  showError(){
+    this.toastr.error("Something Went Wrong!!!");
   }
 
   // Error Messages
@@ -109,9 +128,7 @@ export class AddUserComponent implements OnInit {
       if(phoneControl.errors?.['required']){
         this.phone_error_message= 'Phone number is required';
       }
-      if (phoneControl.errors?.['minlength']){
-        this.phone_error_message= 'Phone must be '+ phoneControl.errors?.['minlength']?.requiredLength+" digits";
-      }
+
     }
   }
 }

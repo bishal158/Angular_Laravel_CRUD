@@ -13,7 +13,7 @@ import { CrudServiceService } from './services/crud-service.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,10 +31,5 @@ import { CrudServiceService } from './services/crud-service.service';
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {
-  constructor(private toastr:ToastrService,private crudService:CrudServiceService){
-    //this.showSuccess();
-  }
-  //showSuccess(){
-    //this.toastr.success("Success")
-  //}
+  constructor(private toastr:ToastrService,private crudService:CrudServiceService){}
 }

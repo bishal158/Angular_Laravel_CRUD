@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoadersComponent } from '../partials/components/loaders/loaders.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddUserComponent,
     UserListComponent,
     UpdateUserComponent,
+    LoadersComponent
   ],
   imports: [
     CommonModule,

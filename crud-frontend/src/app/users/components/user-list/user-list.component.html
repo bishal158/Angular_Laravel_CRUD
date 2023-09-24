@@ -3,14 +3,14 @@
 <div class="container mb-2">
   <a routerLink="/user/add-user" class="text-decoration-none">
     <button class="btn btn-dark text-white text-center">
-      Add New User
+      Add New Student
     </button>
   </a>
   </div>
   <div class="container">
     <h2 class="text-white bg-dark text-center">Users List</h2>
   </div>
-  <div class="container mt-1 ">
+  <div class="container">
     <table class="table table-light table-hover-light">
       <thead>
         <tr>
@@ -22,18 +22,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Doe</td>
-          <td>john@example.com</td>
-          <td>01798541625</td>
+        <tr *ngFor="let StudentItem of StudentArray; let indexOFtable=index;">
+          <td>{{indexOFtable+1}}</td>
+          <td>{{StudentItem.name}}</td>
+          <td>{{StudentItem.email}}</td>
+          <td>{{StudentItem.phone}}</td>
           <td>
             <a routerLink="/user/update-user" class="text-decoration-none mx-1">
               <button class="btn btn-primary">
                 Update
               </button>
             </a>
-            <button class="btn btn-danger">
+            <button class="btn btn-danger" (click)="deleteStudent(StudentItem.id,indexOFtable)">
               Delete
             </button>
           </td>
